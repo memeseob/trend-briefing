@@ -1,0 +1,590 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>아침 트렌드 브리핑</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;900&family=Noto+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: a Korean daily front page. Masthead + back-issue strip, a banner headline drawn from the summary,
+   photo-led trend stories (lead story full width, the rest in two columns), then video lists as photo cards. */
+:root {
+  --paper: #f6f4ef;
+  --sheet: #fffdf8;
+  --ink: #17171a;
+  --muted: #5f5d58;
+  --rule: #d9d4c8;
+  --red: #c4232b;
+  --red-soft: #f6dedd;
+  --dot: #cfc9bb;
+  --rise: #c4232b;
+  --peak: #b26b00;
+  --fall: #4f6a86;
+  --new: #2c7a4b;
+  --font-head: "Noto Serif KR", "Nanum Myeongjo", "AppleMyungjo", "Batang", serif;
+  --font-body: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #141413; --sheet: #1c1b19; --ink: #ece9e2; --muted: #a29e95; --rule: #34322d;
+    --red: #ff6b66; --red-soft: #3b1d1c; --dot: #3a3833;
+    --rise: #ff6b66; --peak: #f0a640; --fall: #8fb0d2; --new: #6fcf97;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #141413; --sheet: #1c1b19; --ink: #ece9e2; --muted: #a29e95; --rule: #34322d;
+  --red: #ff6b66; --red-soft: #3b1d1c; --dot: #3a3833;
+  --rise: #ff6b66; --peak: #f0a640; --fall: #8fb0d2; --new: #6fcf97;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.75;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+a { color: inherit; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+
+/* Masthead */
+.mast { padding-block: 22px 0; text-align: center; }
+.mast-top {
+  display: flex; justify-content: space-between; gap: 12px;
+  font-size: 0.75rem; color: var(--muted); letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--rule); padding-bottom: 8px;
+}
+.brand {
+  font-family: var(--font-head); font-weight: 900;
+  font-size: clamp(2.3rem, 9vw, 4.2rem); line-height: 1.1; letter-spacing: -0.02em;
+  margin: 14px 0 10px;
+}
+.brand span { color: var(--red); }
+.dateline {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 14px;
+  border-top: 3px double var(--ink); border-bottom: 1px solid var(--ink);
+  padding-block: 7px; font-size: 0.82rem; font-weight: 500;
+}
+.dateline .no { font-family: var(--font-data); }
+
+.issues { display: flex; gap: 6px; overflow-x: auto; padding-block: 12px; scrollbar-width: none; }
+.issues::-webkit-scrollbar { display: none; }
+.issue {
+  flex: none; font: inherit; font-size: 0.8rem; cursor: pointer;
+  border: 1px solid var(--rule); background: var(--sheet); color: var(--ink);
+  padding: 4px 11px; border-radius: 2px;
+}
+.issue b { color: var(--red); font-weight: 700; margin-right: 4px; }
+.issue.weekly b { color: var(--fall); }
+.issue[aria-current="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.issue[aria-current="true"] b { color: inherit; }
+
+/* Front */
+main { padding-block: 8px 64px; }
+.notice {
+  background: var(--sheet); border: 1px solid var(--rule); border-left: 4px solid var(--red);
+  padding: 12px 16px; font-size: 0.9rem; color: var(--muted); margin: 8px 0 22px;
+}
+.notice p { margin: 0 0 4px; }
+.notice p:last-child { margin: 0; }
+.notice strong { color: var(--ink); }
+.notice-label { display: block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; color: var(--red); margin-bottom: 4px; }
+
+.front { padding-block: 6px 26px; border-bottom: 2px solid var(--ink); }
+.kicker { display: inline-block; font-size: 0.78rem; font-weight: 700; color: var(--red); letter-spacing: 0.04em; margin-bottom: 6px; }
+.banner {
+  font-family: var(--font-head); font-weight: 900;
+  font-size: clamp(1.85rem, 6vw, 3.1rem); line-height: 1.22; letter-spacing: -0.02em;
+  margin: 0 0 12px; text-wrap: balance;
+}
+.deck { font-size: 1.08rem; color: var(--muted); margin: 0; max-width: 62ch; }
+.briefs { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; margin-top: 20px; border-top: 1px solid var(--rule); }
+.brief { padding: 14px 18px 4px 0; min-width: 0; }
+.brief + .brief { border-left: 1px solid var(--rule); padding-left: 18px; }
+.brief h3 { font-family: var(--font-head); font-weight: 900; font-size: 1.12rem; line-height: 1.4; margin: 0 0 4px; text-wrap: balance; }
+.brief p { margin: 0; font-size: 0.92rem; color: var(--muted); }
+@media (max-width: 560px) { .brief + .brief { border-left: 0; padding-left: 0; border-top: 1px solid var(--rule); } }
+
+/* Sections */
+.sec { padding-top: 30px; }
+.sec-head { display: flex; align-items: baseline; gap: 12px; border-bottom: 2px solid var(--ink); padding-bottom: 6px; margin-bottom: 18px; }
+.sec-head .pg { font-family: var(--font-data); font-size: 0.75rem; color: var(--paper); background: var(--red); padding: 1px 7px; flex: none; }
+.sec-head h2 { font-family: var(--font-head); font-weight: 900; font-size: 1.45rem; line-height: 1.3; margin: 0; text-wrap: balance; }
+.body > p, .body > ul, .body > ol { max-width: 68ch; margin: 0 0 14px; }
+.body ul, .body ol { padding-left: 1.2em; }
+.body li { margin-bottom: 8px; }
+.body li > ul { margin-top: 8px; }
+.body a { color: var(--red); text-underline-offset: 3px; }
+.body strong { font-weight: 700; }
+.body blockquote { margin: 0 0 14px; padding: 6px 14px; border-left: 3px solid var(--rule); color: var(--muted); }
+.body h3 { font-family: var(--font-head); font-weight: 900; font-size: 1.2rem; margin: 20px 0 8px; }
+
+/* Stories */
+.stories { display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; }
+.story { min-width: 0; padding-block: 18px; border-top: 1px solid var(--rule); }
+.story.lead { grid-column: 1 / -1; border-top: 0; padding-top: 0; }
+.story.lead.has-photo { display: grid; grid-template-columns: 1.25fr 1fr; gap: 28px; }
+.story.lead .story-text { min-width: 0; }
+.story h3 { font-family: var(--font-head); font-weight: 900; font-size: 1.32rem; line-height: 1.38; margin: 4px 0 10px; text-wrap: balance; }
+.story.lead h3 { font-size: clamp(1.5rem, 3.4vw, 2rem); }
+.story ul { padding-left: 1.1em; margin: 0; }
+.story li { margin-bottom: 8px; }
+.story a { color: var(--red); text-underline-offset: 3px; }
+@media (max-width: 760px) {
+  .stories { grid-template-columns: 1fr; }
+  .story.lead.has-photo { grid-template-columns: 1fr; gap: 14px; }
+}
+
+.photo { margin: 0 0 12px; }
+.photo .frame { position: relative; aspect-ratio: 16 / 9; max-width: 100%; background: var(--dot); overflow: hidden; }
+.photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.photo figcaption { font-size: 0.78rem; color: var(--muted); padding-top: 6px; border-bottom: 1px solid var(--rule); padding-bottom: 6px; line-height: 1.5; }
+
+.stage {
+  list-style: none; margin-left: -1.1em !important;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; font-size: 0.85rem; color: var(--muted);
+}
+.stage .stamp {
+  font-weight: 700; font-size: 0.8rem; color: var(--stage, var(--red));
+  border: 1.5px solid var(--stage, var(--red)); padding: 0 8px; border-radius: 2px; letter-spacing: 0.02em;
+}
+
+/* Video li with a small photo */
+li.vid { display: flex; gap: 10px; align-items: flex-start; }
+li.vid .mini { flex: none; width: 96px; aspect-ratio: 16 / 9; max-width: 100%; object-fit: cover; background: var(--dot); }
+li.vid .mini-text { min-width: 0; }
+
+/* Card lists (tables with links) */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 22px 20px; margin-bottom: 18px; }
+.card { min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.card .frame { position: relative; aspect-ratio: 16 / 9; max-width: 100%; background: var(--dot); overflow: hidden; }
+.card .frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.rank {
+  position: absolute; left: 0; top: 0; min-width: 34px; text-align: center;
+  font-family: var(--font-head); font-weight: 900; font-size: 1.05rem; line-height: 1.6;
+  background: var(--ink); color: var(--paper); padding: 0 7px;
+}
+.ph {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  background-color: var(--sheet);
+  background-image: radial-gradient(var(--dot) 1.2px, transparent 1.4px);
+  background-size: 7px 7px;
+  font-family: var(--font-head); font-weight: 900; font-size: 1.1rem; color: var(--muted);
+}
+.ph span { background: var(--sheet); padding: 2px 10px; border: 1px solid var(--rule); }
+.card h4 { font-family: var(--font-head); font-weight: 900; font-size: 1.02rem; line-height: 1.45; margin: 4px 0 0; text-wrap: balance; }
+.card h4 a { text-decoration: none; }
+.card h4 a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.card .by { font-size: 0.8rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 2px 10px; }
+.card .by .n { font-family: var(--font-data); color: var(--ink); font-variant-numeric: tabular-nums; }
+.card .why { font-size: 0.88rem; line-height: 1.6; margin: 0; padding-top: 6px; border-top: 1px dotted var(--rule); }
+
+.table-scroll { overflow-x: auto; margin: 0 0 18px; border-top: 2px solid var(--ink); border-bottom: 1px solid var(--ink); }
+.body table { border-collapse: collapse; width: 100%; font-size: 0.88rem; line-height: 1.55; }
+.body th, .body td { padding: 8px 10px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--rule); }
+.body th { font-size: 0.75rem; color: var(--muted); font-weight: 700; white-space: nowrap; }
+.body tr:last-child td { border-bottom: 0; }
+.body td.num { font-family: var(--font-data); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.sec.sources .body { font-size: 0.85rem; color: var(--muted); }
+.sec.insight ol { counter-reset: none; }
+
+.state { padding-block: 48px; color: var(--muted); max-width: 52ch; margin: 0 auto; text-align: center; }
+.state h2 { font-family: var(--font-head); font-weight: 900; font-size: 1.5rem; color: var(--ink); margin: 0 0 8px; }
+.state p { margin: 0 0 8px; }
+</style>
+
+<header class="wrap mast">
+  <div class="mast-top"><span>한국 숏폼·롱폼 영상 동향</span><span>유튜브 · 틱톡 · 릴스 · 스레드</span></div>
+  <h1 class="brand">아침 <span>트렌드</span> 브리핑</h1>
+  <div class="dateline" id="dateline"><span>보고서를 불러오는 중</span></div>
+  <nav class="issues" id="issues" aria-label="지난 호"></nav>
+</header>
+
+<main class="wrap">
+  <div id="view">
+    <section class="state">
+      <h2>오늘 자 신문을 펴는 중</h2>
+      <p>매일 아침 한국 유튜브·틱톡·인스타 릴스·스레드 트렌드 보고서가 여기에 실립니다.</p>
+    </section>
+  </div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+<script>
+(function () {
+  const view = document.getElementById('view');
+  const issuesEl = document.getElementById('issues');
+  const datelineEl = document.getElementById('dateline');
+  let reports = [];
+  let currentId = null;
+  const thumbCache = {};
+
+  const WD = ['일', '월', '화', '수', '목', '금', '토'];
+  const parseDate = iso => { const [y, m, d] = String(iso || '').split('-').map(Number); return y ? new Date(y, m - 1, d) : null; };
+  const shortDate = iso => { const d = parseDate(iso); return d ? (d.getMonth() + 1) + '/' + d.getDate() + ' (' + WD[d.getDay()] + ')' : (iso || ''); };
+  const longDate = iso => { const d = parseDate(iso); return d ? d.getFullYear() + '년 ' + (d.getMonth() + 1) + '월 ' + d.getDate() + '일 ' + WD[d.getDay()] + '요일' : ''; };
+  const kindLabel = k => k === 'weekly' ? '주간' : '일간';
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+  const stripMarks = s => s.replace(/^\s*\d+\.\s*/, '').replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/gu, '').trim();
+
+  function thumbKey(href) {
+    let m = /(?:youtube\.com\/(?:shorts\/|watch\?v=)|youtu\.be\/)([A-Za-z0-9_-]{11})/.exec(href);
+    if (m) return 'yt:' + m[1];
+    m = /tiktok\.com\/@[^/]+\/video\/(\d+)/.exec(href);
+    return m ? 'tt:' + m[1] : null;
+  }
+  function platform(href) {
+    if (/youtu/.test(href)) return '유튜브';
+    if (/tiktok/.test(href)) return '틱톡';
+    if (/instagram/.test(href)) return '릴스';
+    if (/threads/.test(href)) return '스레드';
+    return '기사';
+  }
+
+  // Images arrive after the text: every <img data-k> gets its src once the report's thumbs doc loads.
+  async function loadThumbs(reportId) {
+    if (!(reportId in thumbCache)) {
+      thumbCache[reportId] = {};
+      try {
+        const res = await fetch('reports/' + reportId + '.thumbs.json', { cache: 'no-cache' });
+        if (res.ok) thumbCache[reportId] = (await res.json()) || {};
+      } catch (e) { /* page still reads fine without photos */ }
+    }
+    if (currentId !== reportId) return;
+    const imgs = thumbCache[reportId];
+    view.querySelectorAll('img[data-k]').forEach(img => {
+      const k = img.dataset.k;
+      const src = imgs[k] || (k.startsWith('yt:') ? 'https://i.ytimg.com/vi/' + k.slice(3) + '/mqdefault.jpg' : '');
+      if (src) { img.src = src; img.hidden = false; const ph = img.parentNode.querySelector('.ph'); if (ph) ph.remove(); }
+      else if (img.dataset.drop) { const box = img.closest(img.dataset.drop); if (box) box.remove(); else img.remove(); }
+    });
+  }
+
+  function makeImg(key, alt, dropSel) {
+    const img = el('img');
+    img.alt = alt || '';
+    img.loading = 'lazy';
+    img.hidden = true;
+    if (key) img.dataset.k = key;
+    if (dropSel) img.dataset.drop = dropSel;
+    return img;
+  }
+
+  function frameFor(href, alt, rank) {
+    const frame = el('div', 'frame');
+    const key = href && thumbKey(href);
+    const ph = el('div', 'ph'); ph.appendChild(el('span', '', platform(href || '')));
+    frame.appendChild(ph);
+    if (key) frame.appendChild(makeImg(key, alt));
+    if (rank) frame.appendChild(el('span', 'rank', rank));
+    return frame;
+  }
+
+  // Tables whose rows link to posts become photo cards; plain data tables stay tables.
+  function tableToCards(tb) {
+    const heads = [...tb.querySelectorAll('thead th')].map(th => th.textContent.trim());
+    const find = re => heads.findIndex(h => re.test(h));
+    const col = {
+      rank: find(/^#$|순위/), title: find(/제목|내용|설명/), by: find(/채널|계정/),
+      n: find(/조회|좋아요/), time: find(/업로드|작성|시각/), why: find(/왜|이유|메모/)
+    };
+    const rows = [...tb.querySelectorAll('tbody tr')];
+    if (col.title < 0 || !rows.some(r => r.cells[col.title] && r.cells[col.title].querySelector('a[href]'))) return null;
+    const grid = el('div', 'cards');
+    rows.forEach(r => {
+      const cell = i => (i >= 0 && r.cells[i]) ? r.cells[i] : null;
+      const tcell = cell(col.title);
+      const a = tcell && tcell.querySelector('a[href]');
+      const href = a ? a.getAttribute('href') : '';
+      const title = tcell ? tcell.textContent.trim() : '';
+      const card = el('article', 'card');
+      card.appendChild(frameFor(href, title, cell(col.rank) ? cell(col.rank).textContent.trim() : ''));
+      const h = el('h4');
+      if (a) { const link = el('a', '', title); link.href = href; link.target = '_blank'; link.rel = 'noopener'; h.appendChild(link); }
+      else h.textContent = title;
+      card.appendChild(h);
+      const by = el('div', 'by');
+      if (cell(col.by)) by.appendChild(el('span', '', cell(col.by).textContent.trim()));
+      if (cell(col.n)) {
+        const s = el('span');
+        s.append(heads[col.n].replace(/수$/, '') + ' ');
+        s.appendChild(el('span', 'n', cell(col.n).textContent.trim()));
+        by.appendChild(s);
+      }
+      if (cell(col.time)) by.appendChild(el('span', '', cell(col.time).textContent.trim()));
+      card.appendChild(by);
+      if (cell(col.why)) card.appendChild(el('p', 'why', cell(col.why).textContent.trim()));
+      grid.appendChild(card);
+    });
+    return grid;
+  }
+
+  function stageColor(t) {
+    if (/꺾/.test(t)) return 'var(--fall)';
+    if (/정점/.test(t)) return 'var(--peak)';
+    if (/막 뜨/.test(t)) return 'var(--new)';
+    return 'var(--rise)';
+  }
+
+  function decorateList(root) {
+    root.querySelectorAll('li').forEach(li => {
+      const txt = li.textContent.trim();
+      if (/^확산 단계/.test(txt)) {
+        const strong = li.querySelector('strong');
+        const stage = strong ? strong.textContent.trim() : txt.replace(/^확산 단계\s*:?\s*/, '').split(/[\s(]/)[0];
+        const rest = txt.replace(/^확산 단계\s*:?\s*/, '').replace(stage, '').trim();
+        li.textContent = '';
+        li.className = 'stage';
+        li.appendChild(el('span', '', '확산 단계'));
+        const st = el('span', 'stamp', stage); st.style.setProperty('--stage', stageColor(stage));
+        li.appendChild(st);
+        if (rest) li.appendChild(el('span', '', rest));
+        return;
+      }
+      if (li.querySelector('ul,ol')) return;
+      const a = [...li.querySelectorAll('a[href]')].find(x => thumbKey(x.getAttribute('href')));
+      if (!a) return;
+      const text = el('div', 'mini-text');
+      while (li.firstChild) text.appendChild(li.firstChild);
+      const img = makeImg(thumbKey(a.getAttribute('href')), '', '.mini');
+      img.className = 'mini';
+      li.classList.add('vid');
+      li.append(img, text);
+    });
+  }
+
+  function buildStories(nodes) {
+    const box = el('div', 'stories');
+    let story = null;
+    const loose = [];
+    nodes.forEach(n => {
+      if (n.tagName === 'H3') {
+        story = el('article', 'story');
+        const raw = n.textContent.trim().replace(/^[①-⑩\d.\s]+/, '');
+        let head = raw, kind = '';
+        let m = /^(.*?)\s+[—–-]\s+([^—–-]+)$/.exec(raw) || /^(.*)\(([^()]+)\)\s*$/.exec(raw);
+        if (m) { head = m[1].trim(); kind = m[2].trim(); }
+        const text = el('div', 'story-text');
+        if (kind) text.appendChild(el('span', 'kicker', kind));
+        text.appendChild(el('h3', '', head));
+        story.appendChild(text);
+        box.appendChild(story);
+      } else if (story) {
+        story.querySelector('.story-text').appendChild(n);
+      } else loose.push(n);
+    });
+    const stories = [...box.children];
+    if (!stories.length) return null;
+    stories.forEach((s, i) => {
+      if (i === 0) s.classList.add('lead');
+      const a = [...s.querySelectorAll('a[href]')].find(x => thumbKey(x.getAttribute('href')));
+      if (!a) return;
+      const fig = el('figure', 'photo');
+      fig.appendChild(frameFor(a.getAttribute('href'), a.textContent));
+      const li = a.closest('li');
+      let cap = (li ? li.textContent : a.textContent).replace(/https?:\/\/\S+/g, '').replace(/[—–-]\s*$/, '').trim();
+      if (cap.length > 90) cap = cap.slice(0, 88) + '…';
+      fig.appendChild(el('figcaption', '', cap));
+      if (i === 0) { s.prepend(fig); s.classList.add('has-photo'); } else s.querySelector('.story-text').insertBefore(fig, s.querySelector('.story-text h3').nextSibling);
+    });
+    return { box, loose };
+  }
+
+  function renderReport(r, issueNo) {
+    view.innerHTML = '';
+    datelineEl.innerHTML = '';
+    datelineEl.append(el('span', '', longDate(r.date)), el('span', '', kindLabel(r.kind) + ' 보고'));
+    if (issueNo) datelineEl.appendChild(el('span', 'no', '제' + issueNo + '호'));
+    if (r.createdAt) {
+      const dt = new Date(r.createdAt);
+      if (!isNaN(dt)) datelineEl.appendChild(el('span', '', dt.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' }) + ' 발행'));
+    }
+
+    const md = String(r.markdown || '');
+    const doc = el('div');
+    if (window.marked && window.DOMPurify) doc.innerHTML = DOMPurify.sanitize(marked.parse(md, { gfm: true }));
+    else { const pre = el('pre', '', md); pre.style.whiteSpace = 'pre-wrap'; doc.appendChild(pre); }
+
+    // Bare URLs read as noise: name the platform instead.
+    doc.querySelectorAll('a[href]').forEach(a => {
+      a.target = '_blank'; a.rel = 'noopener';
+      if (a.textContent.trim() === a.getAttribute('href')) a.textContent = platform(a.href) + '에서 보기 ↗';
+    });
+
+    const h1 = doc.querySelector('h1');
+    const h1Text = h1 ? stripMarks(h1.textContent).replace(/\(\d{4}-\d{2}-\d{2}\)/, '').trim() : (r.title || '');
+    if (h1) h1.remove();
+
+    // Split into sections at each h2.
+    const intro = [];
+    const sections = [];
+    [...doc.childNodes].forEach(n => {
+      if (n.nodeType !== 1) return;
+      if (n.tagName === 'H2') sections.push({ title: n.textContent.trim(), nodes: [] });
+      else (sections.length ? sections[sections.length - 1].nodes : intro).push(n);
+    });
+
+    const frag = document.createDocumentFragment();
+
+    if (intro.length) {
+      const note = el('aside', 'notice');
+      note.appendChild(el('span', 'notice-label', '편집자 알림'));
+      intro.forEach(n => {
+        if (n.tagName === 'BLOCKQUOTE') [...n.childNodes].forEach(c => note.appendChild(c));
+        else note.appendChild(n);
+      });
+      frag.appendChild(note);
+    }
+
+    const summaryIdx = sections.findIndex(s => /요약/.test(s.title));
+    const front = el('section', 'front');
+    const summary = summaryIdx >= 0 ? sections.splice(summaryIdx, 1)[0] : null;
+    const items = summary ? summary.nodes.flatMap(n => n.tagName === 'UL' || n.tagName === 'OL' ? [...n.children] : []) : [];
+    const split = li => {
+      const strong = li.querySelector('strong');
+      const head = strong ? strong.textContent.trim() : '';
+      let rest = li.textContent.trim();
+      if (head) rest = rest.replace(head, '').replace(/^\s*[:：]\s*/, '').trim();
+      return { head: head || rest, rest: head ? rest : '' };
+    };
+    front.appendChild(el('span', 'kicker', '오늘의 1면'));
+    if (items.length) {
+      const top = split(items[0]);
+      front.appendChild(el('h2', 'banner', top.head));
+      if (top.rest) front.appendChild(el('p', 'deck', top.rest));
+      if (items.length > 1) {
+        const briefs = el('div', 'briefs');
+        items.slice(1).forEach(li => {
+          const s = split(li);
+          const b = el('div', 'brief');
+          b.appendChild(el('h3', '', s.head));
+          if (s.rest) b.appendChild(el('p', '', s.rest));
+          briefs.appendChild(b);
+        });
+        front.appendChild(briefs);
+      }
+    } else {
+      front.appendChild(el('h2', 'banner', h1Text));
+      if (summary) summary.nodes.forEach(n => front.appendChild(n));
+    }
+    frag.appendChild(front);
+
+    sections.forEach((s, i) => {
+      const sec = el('section', 'sec');
+      if (/출처/.test(s.title)) sec.classList.add('sources');
+      const head = el('div', 'sec-head');
+      head.appendChild(el('span', 'pg', (i + 2) + '면'));
+      head.appendChild(el('h2', '', stripMarks(s.title)));
+      sec.appendChild(head);
+      const body = el('div', 'body');
+      let nodes = s.nodes;
+      if (/주제|TOP/i.test(s.title)) {
+        const built = buildStories(nodes);
+        if (built) { built.loose.forEach(n => body.appendChild(n)); body.appendChild(built.box); nodes = []; }
+      }
+      nodes.forEach(n => body.appendChild(n));
+      body.querySelectorAll('table').forEach(tb => {
+        const cards = tableToCards(tb);
+        if (cards) { tb.replaceWith(cards); return; }
+        const box = el('div', 'table-scroll');
+        tb.parentNode.insertBefore(box, tb);
+        box.appendChild(tb);
+        tb.querySelectorAll('td').forEach(td => { if (/^[\d,.\sKM]+(만|억|회)?$/.test(td.textContent.trim()) && /\d/.test(td.textContent)) td.classList.add('num'); });
+      });
+      decorateList(body);
+      sec.appendChild(body);
+      frag.appendChild(sec);
+    });
+
+    view.appendChild(frag);
+    loadThumbs(r.id);
+  }
+
+  function renderIssues() {
+    issuesEl.innerHTML = '';
+    reports.forEach(r => {
+      const b = el('button', 'issue' + (r.kind === 'weekly' ? ' weekly' : ''));
+      b.type = 'button';
+      b.setAttribute('aria-current', r.id === currentId ? 'true' : 'false');
+      b.appendChild(el('b', '', kindLabel(r.kind)));
+      b.append(shortDate(r.date));
+      b.addEventListener('click', () => select(r.id, true));
+      issuesEl.appendChild(b);
+    });
+    const active = issuesEl.querySelector('[aria-current="true"]');
+    if (active) active.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  }
+
+  function showState(title, lines) {
+    view.innerHTML = '';
+    const s = el('section', 'state');
+    s.appendChild(el('h2', '', title));
+    lines.forEach(t => s.appendChild(el('p', '', t)));
+    view.appendChild(s);
+  }
+
+  async function select(id, user) {
+    const r = reports.find(x => x.id === id) || reports[0];
+    if (!r) return;
+    currentId = r.id;
+    renderIssues();
+    if (r.markdown == null) {
+      try {
+        const res = await fetch('reports/' + r.id + '.md', { cache: 'no-cache' });
+        if (!res.ok) throw new Error(res.status);
+        r.markdown = await res.text();
+      } catch (e) {
+        showState('보고서를 불러오지 못했어요', ['잠시 후 페이지를 새로고침해 주세요.']);
+        return;
+      }
+      if (currentId !== r.id) return;
+    }
+    const sameKind = reports.filter(x => x.kind === r.kind).reverse();
+    renderReport(r, sameKind.findIndex(x => x.id === r.id) + 1);
+    if (user) {
+      try { history.replaceState(null, '', '#' + r.id); } catch (e) {}
+      window.scrollTo({ top: 0 });
+    }
+  }
+
+  function apply(list) {
+    reports = list;
+    if (!reports.length) {
+      issuesEl.innerHTML = '';
+      datelineEl.textContent = '아직 발행된 호가 없습니다';
+      showState('아직 실린 보고서가 없어요', ['매일 아침 PC에서 조사가 끝나면 그날 보고서가 여기에 자동으로 실립니다.', 'PC와 Claude 앱이 켜져 있어야 보고서가 만들어집니다.']);
+      return;
+    }
+    const newest = reports[0];
+    const hash = (location.hash || '').slice(1);
+    select(reports.some(r => r.id === hash) ? hash : newest.id, false);
+  }
+
+  async function start() {
+    try {
+      const res = await fetch('reports/index.json', { cache: 'no-cache' });
+      if (!res.ok) throw new Error(res.status);
+      apply(await res.json());
+    } catch (e) {
+      showState('보고서를 불러오지 못했어요', ['잠시 후 페이지를 새로고침해 주세요.']);
+    }
+  }
+  window.addEventListener('hashchange', () => { const h = location.hash.slice(1); if (h && h !== currentId) select(h, false); });
+  start();
+})();
+</script>
+
+</body></html>
